@@ -8,7 +8,7 @@
                     <div class="inline-flex items-center">
                         <h2
                             class="block text-xl font-semibold tracking-tighter text-black transition duration-500 ease-in-out transform cursor-pointer hover:text-blueGray-500 lg:text-x lg:mr-8">
-                            Store Management Website</h2>
+                            Vehicle Accessory Shop</h2>
                     </div>
                 </a>
                 <p class="text-gray-500">Demo Address</p>

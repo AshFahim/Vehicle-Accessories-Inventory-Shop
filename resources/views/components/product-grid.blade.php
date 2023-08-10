@@ -1,23 +1,44 @@
-<div class="product-item float-left bg-white mt-8 mr-8 border border-gray-200 border-solid">
-    <form method="post" action="?action=add&bmuk_no={{ $bmuk_no }}">
-        @csrf
-        <div class="product-image h-44 w-64 overflow-hidden"><img src="{{ $product_image }}"></div>
-        <div class="favorite-switch" style="--star-color:{{ $product_fav ? 'red' : 'black' }};"
-            onclick="document.location='?action=switch-favorite&bmuk_no={{ $bmuk_no }}'"></div>
-        <div class="product-tile-footer px-4 pt-4 overflow-auto">
-            <div class="product-title text-purple-700 font-bold">{{ $product_name }}</div>
-            <div class="product-desc mb-5 text-amber-950">{{ $product_desc }}</div>
-            <div class="product-price mt-2 mr-1 float-left">${{ $product_price }}</div>
-            @auth
-                <div class="cart-action float-right"><input type="text"
-                        class="product-quantity w-12 py-1 px-2 rounded border border-slate-100 border-solid" name="quantity"
-                        value="1" size="2" /><input type="submit" value="Add to Cart"
-                        class="btnAddAction px-2 py-1 ml-2 bg-slate-100 border-stone-400 border border-solid text-gray-950 rounded-sm cursor-pointer float-right" />
-                </div>
-            @endauth
-            <div class="product-rating mt-16">
-                <div class="Stars" style="--rating: {{ $product_rating }};"></div>
-            </div>
+<div class="bg-white shadow rounded overflow-hidden group">
+    <div class="relative">
+        <img src="{{ $product_image }}" alt="product 1" class="w-full">
+        <div
+            class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
+            <a href="{{ url("/product/{$bmuk_no}") }}"
+                class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
+                title="view product">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </a>
+            <a href="#"
+                class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
+                title="add to wishlist">
+                <i class="fa-solid fa-heart"></i>
+            </a>
         </div>
-    </form>
+    </div>
+    <div class="pt-4 pb-3 px-4">
+        <a href="{{ url("/product/{$bmuk_no}") }}">
+            <h4 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition">
+                {{ $product_name }}</h4>
+        </a>
+        <a href="{{ url("/product/{$bmuk_no}") }}">
+            <h4 class="text-base mb-2 text-gray-800 hover:text-primary transition">
+                {{ $product_desc }}</h4>
+        </a>
+        <div class="flex items-baseline mb-1 space-x-2">
+            <p class="text-xl text-primary font-semibold">${{ $product_price }}</p>
+        </div>
+        <div class="flex items-center">
+            <div class="flex gap-1 text-sm text-yellow-400">
+                @for ($i = 0; $i < $product_rating; $i++)
+                    <span><i class="fa-solid fa-star"></i></span>
+                @endfor
+            </div>
+            <div class="text-xs text-gray-500 ml-3">(150)</div>
+        </div>
+    </div>
+    @auth
+        <a href="#"
+            class="block w-full py-1 text-center text-white bg-rose-500 border rounded-b hover:bg-transparent hover:text-rose-500 transition">Add
+            to cart</a>
+    @endauth
 </div>

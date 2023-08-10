@@ -6,17 +6,15 @@ use Illuminate\View\Component;
 
 class ProductGridSlider extends Component
 {
-    public $sliderNo;
     public $products;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($sliderNo, $data)
+    public function __construct($data)
     {
         $this->products = $data;
-        $this->sliderNo = $sliderNo;
     }
 
     /**

@@ -4,17 +4,16 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class SearchSortProduct extends Component
+class HomeBanner extends Component
 {
-    public int $sortMode;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(int $sortMode)
+    public function __construct()
     {
-        $this->sortMode = $sortMode;
+        //
     }
 
     /**
@@ -24,6 +23,6 @@ class SearchSortProduct extends Component
      */
     public function render()
     {
-        return view('components.search-sort-product');
+        return view('components.home-banner');
     }
 }

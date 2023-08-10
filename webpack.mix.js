@@ -4,6 +4,7 @@ mix.webpackConfig({
         children: true,
     },
 });
+mix.disableSuccessNotifications();
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management

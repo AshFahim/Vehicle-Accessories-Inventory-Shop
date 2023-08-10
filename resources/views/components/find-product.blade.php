@@ -1,15 +1,15 @@
 <div
     class="px-2 py-3 md:px-6 md:py-4 bg-white border border-gray-300 dark:border-gray-700 dark:bg-gray-800 w-9/12 mx-auto backdrop-filter backdrop-blur-lg bg-opacity-30 dark:backdrop-filter dark:backdrop-blur-lg dark:bg-opacity-30">
     <h4 class="text-2xl font-bold dark:text-gray-300">Find your Product</h4>
-    <form wire:submit.prevent="search">
-        <select required id="car_brand" name="car_brand"
+    <form action="/shop/filtered">
+        <select required id="brand" name="brand"
             class="block w-full mt-6 transition duration-300 ease-in-out bg-transparent border-transparent dark:text-gray-400 focus:border-red focus:outline-none focus:ring-transparent">
             <option disabled selected value="">Car Brand</option>
             @foreach ($brands as $brand)
                 <option value="{{ $brand }}">{{ $brand }}</option>
             @endforeach
         </select>
-        <select required id="car_model" name="car_model"
+        <select required id="model" name="model"
             class="block w-full mt-6 transition duration-300 ease-in-out bg-transparent border-transparent dark:text-gray-400 focus:border-red focus:outline-none focus:ring-transparent">
             <option disabled selected value="">Model (Select Car Brand to Load)</option>
         </select>
@@ -45,7 +45,7 @@
 
 <script>
     $(document).ready(function() {
-        $('#car_brand').on('change', function() {
+        $('#brand').on('change', function() {
             var carSpec = $('#specification').val();
             var carBrand = $(this).val();
             if (carBrand) {
@@ -58,30 +58,30 @@
                     dataType: "json",
                     success: function(data) {
                         if (data) {
-                            $('#car_model').empty();
-                            $('#car_model').append(
+                            $('#model').empty();
+                            $('#model').append(
                                 '<option disabled selected value="">Car Model</option>');
-                            $.each(data, function(key, car_model) {
-                                $('select[name="car_model"]').append(
-                                    '<option value="' + car_model + '">' +
-                                    car_model + '</option>');
+                            $.each(data, function(key, model) {
+                                $('select[name="model"]').append(
+                                    '<option value="' + model + '">' +
+                                    model + '</option>');
                             });
                             $('#specification').empty()
                             $('#specification').append(
                                 '<option disabled selected value="">Specification (Select Car Model to Load)</option>'
                             );
                         } else {
-                            $('#car_model').empty();
+                            $('#model').empty();
                         }
                     }
                 });
             } else {
-                $('#car_model').empty();
+                $('#model').empty();
             }
         });
 
-        $('#car_model').on('change', function() {
-            var carBrand = $('#car_brand').val();
+        $('#model').on('change', function() {
+            var carBrand = $('#brand').val();
             var carModel = $(this).val();
             if (carModel) {
                 $.ajax({

@@ -27,6 +27,7 @@ class ProductFactory extends Factory
         return [
             'euro_id' => $this->faker->unique->uuid,
             'oem_id' => $this->faker->uuid,
+            'image' => 'http://127.0.0.1:8000/demo-product.png',
             'price' => $this->faker->randomFloat(2, 100, 5000),
             'collection' => $this->faker->randomElement(array('Air Filter', 'Oil Filter', '0w-30')),
             'filter_type' => $this->faker->randomElement(array('Polyurethane', 'Plastic Panel', 'Metal Cap')),
