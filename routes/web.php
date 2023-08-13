@@ -44,6 +44,14 @@ Route::get('/orderdetails/{orderNo}', function ($orderNo) {
     return OrderController::orderDetails($orderNo);
 })->middleware(['auth'])->name('orderdetails');
 
+Route::get('/cart', function () {
+    return view('cart')->with('pageName', 'cart');
+})->middleware(['auth'])->name('cart');
+
+Route::get('/admindash', function () {
+    return view('admindash')->with('pageName', 'admindash');
+})->middleware(['auth'])->name('admindash');
+
 
 Route::get('/orders', function () {
     return OrderController::index();
@@ -70,3 +78,4 @@ Route::get('updateSpecifications/{brand}/{specs}', function ($brand, $specs) {
 Route::get('product/{query}', function ($query) {
     return ProductController::product($query);
 });
+
