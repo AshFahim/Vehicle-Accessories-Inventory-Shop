@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product as ModelsProduct;
+use App\Models\User as ModelsUser;
 use Illuminate\Support\Arr;
 
 class ProductController extends Controller
@@ -11,10 +12,10 @@ class ProductController extends Controller
     public function index()
     {
         $pageName = 'Home';
-        $newArrivals = ModelsProduct::all()->random(5)->toArray();
-        $bestSellers = ModelsProduct::all()->random(5)->toArray();
-        $featureds = ModelsProduct::all()->random(5)->toArray();
-        $prevVisits = ModelsProduct::all()->random(5)->toArray();
+        $newArrivals = ModelsProduct::with('reviews')->latest()->limit(5)->get()->toArray();
+        $bestSellers = ModelsProduct::with('reviews')->limit(5)->get();
+        $featureds = ModelsProduct::with('reviews')->limit(5)->get();
+        $prevVisits = ModelsProduct::with('reviews')->limit(5)->get();
         $brands = ModelsProduct::all()->unique('car_brand')->pluck('car_brand');
         $collections = ModelsProduct::all()->unique('collection')->pluck('collection');
         $filterTypes = ModelsProduct::all()->unique('filter_type')->pluck('filter_type');
@@ -23,39 +24,53 @@ class ProductController extends Controller
         return view('welcome')->with($data);
     }
 
+    public static function aboutUs()
+    {
+        $pageName = 'About Us';
+        $data = compact('pageName');
+        return view('aboutUs')->with($data);
+    }
+
+    public static function contactUs()
+    {
+        $pageName = 'Contact Us';
+        $data = compact('pageName');
+        return view('contactUs')->with($data);
+    }
+
     public static function shop(Request $request)
     {
         $pageName = 'Shop';
         //sort mode: 1 - default, 2 - brand asc, 3 - brand desc, 4 - model asc, 5 - model desc, 6 - price desc, 7 - price asc
         switch ($request->sortMode) {
             case 1:
-                $products = ModelsProduct::paginate(20)->withQueryString();
+                $products = ModelsProduct::with('reviews')->orderBy('bmuk_no', 'asc')->paginate(20)->withQueryString();
                 break;
             case 2:
-                $products = ModelsProduct::orderBy('car_brand', 'asc')->paginate(20)->withQueryString();
+                $products = ModelsProduct::with('reviews')->orderBy('car_brand', 'asc')->paginate(20)->withQueryString();
                 break;
             case 3:
-                $products = ModelsProduct::orderBy('car_brand', 'desc')->paginate(20)->withQueryString();
+                $products = ModelsProduct::with('reviews')->orderBy('car_brand', 'desc')->paginate(20)->withQueryString();
                 break;
             case 4:
-                $products = ModelsProduct::orderBy('model', 'asc')->paginate(20)->withQueryString();
+                $products = ModelsProduct::with('reviews')->orderBy('model', 'asc')->paginate(20)->withQueryString();
                 break;
             case 5:
-                $products = ModelsProduct::orderBy('model', 'desc')->paginate(20)->withQueryString();
+                $products = ModelsProduct::with('reviews')->orderBy('model', 'desc')->paginate(20)->withQueryString();
                 break;
             case 6:
-                $products = ModelsProduct::orderBy('price', 'desc')->paginate(20)->withQueryString();
+                $products = ModelsProduct::with('reviews')->orderBy('price', 'desc')->paginate(20)->withQueryString();
                 break;
             case 7:
-                $products = ModelsProduct::orderBy('price', 'asc')->paginate(20)->withQueryString();
+                $products = ModelsProduct::with('reviews')->orderBy('price', 'asc')->paginate(20)->withQueryString();
                 break;
             default:
-                $products = ModelsProduct::paginate(20)->withQueryString();
+                $products = ModelsProduct::with('reviews')->orderBy('bmuk_no', 'asc')->paginate(20)->withQueryString();
         }
 
         // search funtion
         if ($request->searchQuery) {
-            $products = ModelsProduct::where('bmuk_no', $request->searchQuery)->paginate(20)->withQueryString();
+            $products = ModelsProduct::with('reviews')->where('bmuk_no', $request->searchQuery)->orWhere('collection', 'like', '%' . $request->searchQuery . '%')->orWhere('filter_type', 'like', '%' . $request->searchQuery . '%')->orWhere('car_brand', 'like', '%' . $request->searchQuery . '%')->orWhere('model', 'like', '%' . $request->searchQuery . '%')->orderBy('bmuk_no', 'asc')->paginate(20)->withQueryString();
         }
         $sortMode = $request->sortMode ?? 1;
         $brands = ModelsProduct::all()->unique('car_brand')->pluck('car_brand');
@@ -68,7 +83,7 @@ class ProductController extends Controller
         return view('shop')->with($data);
     }
 
-    public static function filteredShop($request)
+    public static function filteredShop(Request $request)
     {
         $pageName = 'Shop';
         $brands = ModelsProduct::all()->unique('car_brand')->pluck('car_brand');
@@ -99,25 +114,20 @@ class ProductController extends Controller
         if ($request->specification != 'all') {
                 /* $products['specification'] = $request->specification */;
         }
-        $products = ModelsProduct::where($products)->paginate(20)->withQueryString();
+        $products = ModelsProduct::with('reviews')->where($products)->orderBy('bmuk_no', 'asc')->paginate(20)->withQueryString();
         $data = compact('products', 'filterProductVars', 'selectedFilter', 'isFiltered', 'pageName');
         return view('shop')->with($data);
     }
 
 
-
-
-
-
-
-
-
-
-
     public static function product(String $productId)
     {
-        $productDetails = ModelsProduct::where('bmuk_no', $productId)->get()->first();
-        $data = compact('productDetails');
+        $productDetails = ModelsProduct::with('reviews')->where('bmuk_no', $productId)->get()->first();
+        $userIds = $productDetails->reviews->pluck('user_id');
+        $userNames = ModelsUser::whereIn('id', $userIds)->select('id', 'name')->get();
+        $userNames = Arr::pluck($userNames, 'name', 'id');
+        $pageName = $productDetails->collection . ' - ' . $productDetails->filter_type;
+        $data = compact('pageName', 'productDetails', 'userNames');
         return view('product')->with($data);
     }
 

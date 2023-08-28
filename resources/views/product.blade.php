@@ -13,9 +13,10 @@
                     {{ $productDetails['collection'] . '-' . $productDetails['filter_type'] }}</h2>
                 <div class="flex items-center mb-4">
                     <div class="product-rating">
-                        <div class="Stars !mx-0" style="--rating: 4;"></div>
+                        <div class="Stars !mx-0" style="--rating: {{ collect($productDetails['reviews'])->avg('rating') }};">
+                        </div>
                     </div>
-                    <div class="text-xs text-gray-500 ml-3">(150 Reviews)</div>
+                    <div class="text-xs text-gray-500 ml-3">({{ count($productDetails['reviews']) }})</div>
                 </div>
                 <div class="space-y-2">
                     <p class="text-gray-800 font-semibold space-x-2">
@@ -47,34 +48,14 @@
                     <p class="text-xl text-black font-semibold">${{ $productDetails['price'] }}</p>
                 </div>
 
-                <div class="mt-4">
-                    <h3 class="text-sm text-gray-800 uppercase mb-1">Quantity</h3>
-                    <div class="flex border border-gray-300 text-gray-600 divide-x divide-gray-300 w-max">
-                        <div class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none">-</div>
-                        <div class="h-8 w-8 text-base flex items-center justify-center">1</div>
-                        <div class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none">+</div>
-                    </div>
-                </div>
-
                 <div class="mt-6 flex gap-3 border-b border-gray-200 pb-5 pt-5">
-                    <a href="#"
+                    <a href="{{ route('cart.add') }}?bmukNo={{ $productDetails['bmuk_no'] }}"
                         class="bg-primary border border-primary bg-red-600 text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-black transition">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="w-10 h-10 p-2 transition-all duration-300 ease-in-out rounded-full" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
-                            </path>
-                        </svg> Add to cart
+                        <i class="fa-solid fa-cart-shopping fa-xl"></i> Add to cart
                     </a>
-                    <a href="#"
+                    <a href="{{ route('wishlist.switch') }}?bmukNo={{ $productDetails['bmuk_no'] }}"
                         class="border border-gray-300 text-red-600 px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:text-black transition">
-                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M7.22303 0.665992C7.32551 0.419604 7.67454 0.419604 7.77702 0.665992L9.41343 4.60039C9.45663 4.70426 9.55432 4.77523 9.66645 4.78422L13.914 5.12475C14.18 5.14607 14.2878 5.47802 14.0852 5.65162L10.849 8.42374C10.7636 8.49692 10.7263 8.61176 10.7524 8.72118L11.7411 12.866C11.803 13.1256 11.5206 13.3308 11.2929 13.1917L7.6564 10.9705C7.5604 10.9119 7.43965 10.9119 7.34365 10.9705L3.70718 13.1917C3.47945 13.3308 3.19708 13.1256 3.25899 12.866L4.24769 8.72118C4.2738 8.61176 4.23648 8.49692 4.15105 8.42374L0.914889 5.65162C0.712228 5.47802 0.820086 5.14607 1.08608 5.12475L5.3336 4.78422C5.44573 4.77523 5.54342 4.70426 5.58662 4.60039L7.22303 0.665992Z"
-                                fill="currentColor" />
-                        </svg> Favorite
+                        <i class="fa-solid fa-star fa-xl"></i> Favorite
                     </a>
                 </div>
 
@@ -161,6 +142,34 @@
                 </table>
             </div>
         </div>
+        <section class="bg-gray-100 py-16">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-semibold text-gray-800 mb-8">Customer Reviews</h2>
+                <div class="space-y-8">
+                    @foreach ($productDetails['reviews'] as $review)
+                        <!-- Review 1 -->
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="flex items-start mb-4 gap-4">
+                                <div
+                                    class="flex mr-3 text-sm bg-slate-400 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300">
+                                    <div class="text-l w-10 h-10 p-2">
+                                        <i class="fa-regular fa-user fa-xl"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-800">{{ $userNames[$review['user_id']] }}
+                                    </h3>
+
+                                    <div class="Stars !mx-0"
+                                        style="--rating: {{ collect($productDetails['reviews'])->avg('rating') }};"></div>
+                                </div>
+                            </div>
+                            <p class="text-gray-700">{{ $review['comment'] }}</p>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
         <!-- ./description -->
     </div>
 @endsection

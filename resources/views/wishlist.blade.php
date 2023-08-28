@@ -34,82 +34,75 @@
                                         </th>
                                         <th
                                             class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                            Price
+                                            Brand
                                         </th>
-                                        {{--                                         <th
-                                            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                            Total Price
-                                        </th> --}}
-                                        {{-- <th
-                                            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                            Status
-                                        </th> --}}
                                         <th
                                             class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                            Order
+                                            Model
+                                        </th>
+                                        <th
+                                            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                            Price
+                                        </th>
+                                        <th
+                                            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        </th>
+                                        <th
+                                            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($orders as $order)
+                                    @foreach ($wishlists as $index => $wishlist)
+                                        @php
+                                            $wishlistNo = ($wishlists->currentPage() - 1) * $wishlists->perPage() + $loop->index + 1;
+                                        @endphp
                                         <tr>
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                <p class="text-gray-900 whitespace-no-wrap">{"1"}</p>
+                                                <p class="text-gray-900 whitespace-no-wrap">{{ $wishlistNo }}</p>
                                             </td>
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                 <div class="flex items-center">
                                                     <div class="flex-shrink-0 w-10 h-10">
-                                                        <img class="w-full h-full rounded-full"
-                                                            src="https://www.shutterstock.com/image-vector/demo-cursor-icon-presentation-billboard-600w-318562925.jpg"
+                                                        <img class="w-full h-full rounded-full" src="{{ $wishlist->image }}"
                                                             alt="" />
                                                     </div>
                                                     <div class="ml-3">
                                                         <p class="text-gray-900 whitespace-no-wrap">
-                                                            {{ $order->created_at }}
+                                                            {{ $wishlist->collection . ' - ' . $wishlist->filter_type }}
                                                         </p>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                 <p class="text-gray-900 whitespace-no-wrap">
-                                                    @php
-                                                        $totalProducts = 0;
-                                                        foreach ($order->orderDetails as $orderDetail) {
-                                                            $totalProducts += $orderDetail->quantity;
-                                                        }
-                                                        echo $totalProducts;
-                                                    @endphp</p>
+                                                    {{ $wishlist->car_brand }}</p>
                                             </td>
-                                            {{--                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                <p class="text-gray-900 whitespace-no-wrap">
-                                                    @php
-                                                        $totalPrice = 0;
-                                                        foreach ($order->orderDetails as $orderDetail) {
-                                                            $totalPrice += $orderDetail->quantity * $orderDetail->price;
-                                                        }
-                                                        echo $order->orderDetails;
-                                                    @endphp
-                                                </p>
-                                            </td> --}}
-                                            {{-- <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                <span
-                                                    class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                                                    <span aria-hidden
-                                                        class="absolute inset-0 @if ($order->status == 'Completed') bg-green-400 @elseif ($order->status == 'Processing') bg-green-200 @elseif ($order->status == 'Waiting for Payment') bg-blue-400 @elseif ($order->status == 'Suspended' or $order->status == 'Cancelled') bg-red-600 @endif opacity-50 rounded-full"></span>
-                                                    <span class="relative">{{ $order->status }}</span>
-                                                </span>
-                                            </td> --}}
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                <a href="/orderdetails/{{ $order->id }}"
-                                                    class="hover:bg-black dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 p-5 w-96 md:w-full bg-gray-800 text-base font-medium leading-4 text-white rounded-lg">Order</a>
+                                                <p class="text-gray-900 whitespace-no-wrap">
+                                                    {{ $wishlist->model }}</p>
+                                            </td>
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                <p class="text-gray-900 whitespace-no-wrap">
+                                                    ${{ $wishlist->price }}</p>
+                                            </td>
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                <a href="{{ route('cart.add') }}?bmukNo={{ $wishlist->bmuk_no }}"
+                                                    class="hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 p-5 w-96 md:w-full bg-gray-800 text-base font-medium leading-4 text-white rounded-lg">Add
+                                                    to Cart</a>
+                                            </td>
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                <a href="{{ route('wishlist.switch') }}?bmukNo={{ $wishlist->bmuk_no }}"
+                                                    class="hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 p-5 w-96 md:w-full bg-red-500 text-base font-medium leading-4 text-white rounded-lg"><i
+                                                        class="fa-solid fa-trash-can fa-xl"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                            @if ($orders->hasPages())
+                            @if ($wishlists->hasPages())
                                 <div class="px-5 py-5 bg-white border-t flex flex-col">
-                                    {{ $orders->links() }}
+                                    {{ $wishlists->links() }}
                                 </div>
                             @endif
                         </div>
@@ -118,7 +111,7 @@
             </div>
             <x-customer-details-card :data="[
                 'name' => Auth()->user()->name,
-                'pastOrderCount' => $orders->total(),
+                'pastOrderCount' => 0,
                 'email' => Auth()->user()->email,
                 'shippingAddress' => Auth()->user()->shipping_address,
                 'billingAddress' => Auth()->user()->billing_address,

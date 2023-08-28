@@ -9,9 +9,9 @@
                 # {{ $orders->id }} ({{ $orders->status }})
             </h1>
             <p class="text-base dark:text-gray-300 font-medium leading-6 text-gray-600">{{ $orders->created_at }}</p>
-            <a href="{{ route('orders') }}"
-                class="hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 p-5 w-96 bg-gray-800 text-base text-center font-medium leading-4 text-white rounded-lg">Back
-                To Order List</a>
+            <a href="{{ route('admin-dashboard') }}"
+                class="hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 p-5 w-96 bg-gray-800 text-base text-center font-medium leading-4 text-white rounded-lg">Admin
+                Dashboard</a>
         </div>
         <div
             class="mt-10 flex flex-col xl:flex-row jusitfy-center items-stretch w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
@@ -45,8 +45,6 @@
                                     <p class="text-base dark:text-white xl:text-lg font-semibold leading-6 text-gray-800">
                                         ${{ $productDetails[$order['bmuk_no']]['price'] * $order['quantity'] }}
                                     </p>
-                                    <a href="{{ route('reviewOrder') }}?order_id={{ $orders->id }}&bmuk_no={{ $order['bmuk_no'] }}"
-                                        class="hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 p-5 w-24 bg-gray-800 text-base text-center font-medium leading-4 text-white rounded-lg">Review</a>
                                 </div>
                             </div>
                         </div>
@@ -109,9 +107,9 @@
                 </div>
             </div>
             <x-customer-details-card :data="[
-                'name' => Auth()->user()->name,
+                'name' => $customerName,
                 'pastOrderCount' => null,
-                'email' => Auth()->user()->email,
+                'email' => $customerEmail,
                 'shippingAddress' => $orders->shipping_address,
                 'billingAddress' => $orders->billing_address,
             ]" />

@@ -23,6 +23,7 @@ class CreateOrdersTable extends Migration
             $table->string('shipping_address', 100);
             $table->string('billing_address', 100);
             $table->enum('shipping_method', ['Sundarban', 'eCourier', 'Steadfast']);
+            $table->float('total_cost', 8, 2);
         });
     }
 

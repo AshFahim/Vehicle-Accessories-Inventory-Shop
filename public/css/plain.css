@@ -80,3 +80,7 @@
     max-width: 400px;
     width: 100%;
 }
+
+#summary {
+    background-color: #f6f6f6;
+}

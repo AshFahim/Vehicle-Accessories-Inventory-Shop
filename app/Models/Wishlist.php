@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OrderDetail extends Model
+class Wishlist extends Model
 {
     use HasFactory;
-    protected $table = "order_details";
+    protected $table = "wishlists";
     protected $primarykey = "id";
-    protected $fillable = ['order_id', 'bmuk_no', 'quantity'];
+    protected $fillable = ['user_id', 'bmuk_no',];
 }

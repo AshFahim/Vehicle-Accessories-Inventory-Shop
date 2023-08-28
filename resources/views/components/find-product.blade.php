@@ -1,7 +1,7 @@
 <div
     class="px-2 py-3 md:px-6 md:py-4 bg-white border border-gray-300 dark:border-gray-700 dark:bg-gray-800 w-9/12 mx-auto backdrop-filter backdrop-blur-lg bg-opacity-30 dark:backdrop-filter dark:backdrop-blur-lg dark:bg-opacity-30">
     <h4 class="text-2xl font-bold dark:text-gray-300">Find your Product</h4>
-    <form action="/shop/filtered">
+    <form action="{{ route('filteredShop') }}"">
         <select required id="brand" name="brand"
             class="block w-full mt-6 transition duration-300 ease-in-out bg-transparent border-transparent dark:text-gray-400 focus:border-red focus:outline-none focus:ring-transparent">
             <option disabled selected value="">Car Brand</option>

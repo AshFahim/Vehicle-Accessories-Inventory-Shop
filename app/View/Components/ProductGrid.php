@@ -13,6 +13,7 @@ class ProductGrid extends Component
     public $product_price;
     public $product_fav;
     public $product_rating;
+    public $review_count;
     /**
      * Create a new component instance.
      *
@@ -26,7 +27,8 @@ class ProductGrid extends Component
         $this->product_desc = $data['car_brand'] . ', ' . $data['model'];
         $this->product_price = $data['price'];
         $this->product_fav = (bool)random_int(0, 1);
-        $this->product_rating = rand(1, 5);
+        $this->product_rating = collect($data['reviews'])->avg('rating');
+        $this->review_count = count($data['reviews']);
     }
 
     /**

@@ -13,12 +13,12 @@
                 <div
                     class="overflow-x-auto max-h-40 scrollbar scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 hover:scrollbar-thumb-gray-500 dark:hover:scrollbar-thumb-gray-500 dark:scrollbar-track-gray-700 scrollbar-track-gray-200">
                     <a class="@if ($selectedFilter['collection'] == 'all') selected-label @endif flex justify-start items-center pl-3 pr-4 py-2 border-l-4 border-transparent text-base text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:bg-gray-700 hover:bg-gray-100 hover:border-blue-800 dark:hover:border-gray-500 focus:outline-none focus:text-gray-800 focus:border-blue-800 transition duration-150 ease-in-out cursor-pointer"
-                        href="{{ url('/shop/filtered?collection=' . 'all' . '&filter_type=' . $selectedFilter['filter_type'] . '&brand=' . $selectedFilter['brand'] . '&model=' . $selectedFilter['model'] . '&specification=' . $selectedFilter['specification']) }}">
+                        href="{{ route('filteredShop') . '?collection=' . 'all' . '&filter_type=' . $selectedFilter['filter_type'] . '&brand=' . $selectedFilter['brand'] . '&model=' . $selectedFilter['model'] . '&specification=' . $selectedFilter['specification'] }}">
                         All
                     </a>
                     @foreach ($collections as $collection)
                         <a class="@if ($selectedFilter['collection'] == $collection) selected-label @endif flex justify-start items-center pl-3 pr-4 py-2 border-l-4 border-transparent text-base text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:bg-gray-700 hover:bg-gray-100 hover:border-blue-800 dark:hover:border-gray-500 focus:outline-none focus:text-gray-800 focus:border-blue-800 transition duration-150 ease-in-out cursor-pointer"
-                            href="{{ url('/shop/filtered?collection=' . $collection . '&filter_type=' . $selectedFilter['filter_type'] . '&brand=' . $selectedFilter['brand'] . '&model=' . $selectedFilter['model'] . '&specification=' . $selectedFilter['specification']) }}">
+                            href="{{ route('filteredShop') . '?collection=' . $collection . '&filter_type=' . $selectedFilter['filter_type'] . '&brand=' . $selectedFilter['brand'] . '&model=' . $selectedFilter['model'] . '&specification=' . $selectedFilter['specification'] }}">
                             {{ $collection }}
                         </a>
                     @endforeach
@@ -35,7 +35,7 @@
                 class="overflow-x-auto max-h-40 scrollbar scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 hover:scrollbar-thumb-gray-500 dark:hover:scrollbar-thumb-gray-500 dark:scrollbar-track-gray-700 scrollbar-track-gray-200">
                 @foreach ($filterTypes as $filterType)
                     <a class="@if ($selectedFilter['filter_type'] == $filterType) selected-label @endif flex justify-start items-center pl-3 pr-4 py-2 border-l-4 border-transparent text-base text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:bg-gray-700 hover:bg-gray-100 hover:border-blue-800 dark:hover:border-gray-500 focus:outline-none focus:text-gray-800 focus:border-blue-800 transition duration-150 ease-in-out cursor-pointer"
-                        href="{{ url('/shop/filtered?collection=' . $selectedFilter['collection'] . '&filter_type=' . $filterType . '&brand=' . $selectedFilter['brand'] . '&model=' . $selectedFilter['model'] . '&specification=' . $selectedFilter['specification']) }}">
+                        href="{{ route('filteredShop') . '?collection=' . $selectedFilter['collection'] . '&filter_type=' . $filterType . '&brand=' . $selectedFilter['brand'] . '&model=' . $selectedFilter['model'] . '&specification=' . $selectedFilter['specification'] }}">
                         {{ $filterType }}
                     </a>
                 @endforeach
@@ -51,7 +51,7 @@
                 class="overflow-x-auto max-h-40 scrollbar scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 hover:scrollbar-thumb-gray-500 dark:hover:scrollbar-thumb-gray-500 dark:scrollbar-track-gray-700 scrollbar-track-gray-200">
                 @foreach ($brands as $brand)
                     <a class="@if ($selectedFilter['brand'] == $brand) selected-label @endif flex justify-start items-center pl-3 pr-4 py-2 border-l-4 border-transparent text-base text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:bg-gray-700 hover:bg-gray-100 hover:border-blue-800 dark:hover:border-gray-500 focus:outline-none focus:text-gray-800 focus:border-blue-800 transition duration-150 ease-in-out cursor-pointer"
-                        href="{{ url('/shop/filtered?collection=' . $selectedFilter['collection'] . '&filter_type=' . $selectedFilter['filter_type'] . '&brand=' . $brand . '&model=' . $selectedFilter['model'] . '&specification=' . $selectedFilter['specification']) }}">
+                        href="{{ route('filteredShop') . '?collection=' . $selectedFilter['collection'] . '&filter_type=' . $selectedFilter['filter_type'] . '&brand=' . $brand . '&model=' . $selectedFilter['model'] . '&specification=' . $selectedFilter['specification'] }}">
                         {{ $brand }}
                     </a>
                 @endforeach
@@ -71,7 +71,7 @@
                 @else
                     @foreach ($models as $model)
                         <a class="@if ($selectedFilter['model'] == $model) selected-label @endif flex justify-start items-center pl-3 pr-4 py-2 border-l-4 border-transparent text-base text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:bg-gray-700 hover:bg-gray-100 hover:border-blue-800 dark:hover:border-gray-500 focus:outline-none focus:text-gray-800 focus:border-blue-800 transition duration-150 ease-in-out cursor-pointer"
-                            href="{{ url('/shop/filtered?collection=' . $selectedFilter['collection'] . '&filter_type=' . $selectedFilter['filter_type'] . '&brand=' . $selectedFilter['brand'] . '&model=' . $model . '&specification=' . $selectedFilter['specification']) }}">
+                            href="{{ route('filteredShop') . '?collection=' . $selectedFilter['collection'] . '&filter_type=' . $selectedFilter['filter_type'] . '&brand=' . $selectedFilter['brand'] . '&model=' . $model . '&specification=' . $selectedFilter['specification'] }}">
                             {{ $model }}
                         </a>
                     @endforeach
@@ -110,7 +110,7 @@
             $selectedFilter['model'] == 'all' &&
             $selectedFilter['specification'] == 'all'
         ))
-        <div><a href="{{ url('/shop') }}"
+        <div><a href="{{ route('shop') }}"
                 class="block w-full py-1 text-center text-white bg-blue-600 border rounded-b hover:bg-transparent hover:text-rose-500 transition">Clear</a>
         </div>
     @endif

@@ -22,6 +22,7 @@ class OrderFactory extends Factory
             'shipping_address' => $this->faker->address(),
             'billing_address' => $this->faker->address(),
             'shipping_method' => $this->faker->randomElement(array('Sundarban', 'eCourier', 'Steadfast')),
+            'total_cost' => $this->faker->randomFloat(2, 0, 10000),
         ];
     }
 }

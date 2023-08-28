@@ -44,10 +44,6 @@
                                             class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                             Status
                                         </th>
-                                        <th
-                                            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                            View
-                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -93,10 +89,6 @@
                                                     <span class="relative">{{ $order->status }}</span>
                                                 </span>
                                             </td>
-                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                <a href="{{ route('orderdetails', ['orderNo' => $order->id]) }}"
-                                                    class="hover:bg-black dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 p-5 w-96 md:w-full bg-gray-800 text-base font-medium leading-4 text-white rounded-lg">View</a>
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -111,11 +103,11 @@
                 </div>
             </div>
             <x-customer-details-card :data="[
-                'name' => Auth()->user()->name,
+                'name' => $customer->name,
                 'pastOrderCount' => $orders->total(),
-                'email' => Auth()->user()->email,
-                'shippingAddress' => Auth()->user()->shipping_address,
-                'billingAddress' => Auth()->user()->billing_address,
+                'email' => $customer->email,
+                'shippingAddress' => $customer->shipping_address,
+                'billingAddress' => $customer->billing_address,
             ]" />
         </div>
     </div>
