@@ -1,64 +1,53 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Vehicle Accessories Inventory Shop
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Welcome to the Vehicle Accessories Inventory Shop GitHub repository! This repository contains the source code for our web application that facilitates the management and sale of modified car parts. The project is built using the Laravel framework and is designed to cater to both users and administrators.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Users
+- **Login/Register:** Users can create accounts or log in if they already have one.
+- **Search and Filter:** Users can search for modified car parts based on car brands, collections, and filter types using the search bar on the homepage.
+- **Product Details:** Users can view product details, including price and specifications.
+- **Add to Cart:** Users can add products to their shopping cart.
+- **Rate Products:** Users can provide ratings and reviews for products.
+- **Favorite Products:** Users can mark products as favorites.
+- **Contact Owner:** Users can contact the owner for inquiries.
+- **Purchase:** Users can buy products, view the total bill, and choose from multiple payment options.
+- **Order History:** Users can access their order history and tracking information.
+- **Password Recovery:** Users can reset their password through the "forgot password" option.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Admin
+- **Login:** Administrators can log in to the admin panel.
+- **User Approval:** Admins can approve user registrations.
+- **Product Management:** Admins can add, delete, and edit products.
+- **Product Ratings:** Admins can view product ratings and reviews.
+- **Sorting:** Admins can sort products by popularity.
+- **Order Management:** Admins can manage customer orders, including processing, tracking, and cancellations.
+- **Stock Information:** Admins can view stock information and prevent orders for unavailable products.
+- **Reports and Analytics:** Admins can access sales reports and analytics for tracking popular products.
+- **User Feedback:** Admins can manage and respond to user reviews and feedback on products.
+- **Coupons:** Admins can create discount coupons.
+- **Payment Monitoring:** Admins can monitor user payments and amounts.
+- **Purchase History:** Admins can view a user's purchase history and products bought.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Getting Started
 
-## Learning Laravel
+To run the project locally, follow these steps:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+1. Clone the repository: `git clone https://github.com/group5/vehicle-accessories-shop.git`
+2. Navigate to the project directory: `cd vehicle-accessories-shop`
+3. Install dependencies: `composer install`
+4. Create a `.env` file: `cp .env.example .env`
+5. Generate an application key: `php artisan key:generate`
+6. Configure the database settings in the `.env` file.
+7. Run migrations: `php artisan migrate`
+8. Start the development server: `php artisan serve`
+9. Access the application in your browser: `http://localhost:8000`
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+We welcome contributions from the community to improve this project. If you find any issues or have suggestions, please open an issue or submit a pull request.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the [MIT License](LICENSE).
