@@ -34,8 +34,8 @@ Welcome to the Vehicle Accessories Inventory Shop GitHub repository! This reposi
 
 To run the project locally, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/group5/vehicle-accessories-shop.git`
-2. Navigate to the project directory: `cd vehicle-accessories-shop`
+1. Clone the repository: `git clone https://github.com/AshFahim/Vehicle-Accessories-Inventory-Shop.git`
+2. Navigate to the project directory: `cd Vehicle-Accessories-Inventory-Shop`
 3. Install dependencies: `composer install`
 4. Create a `.env` file: `cp .env.example .env`
 5. Generate an application key: `php artisan key:generate`
@@ -43,6 +43,7 @@ To run the project locally, follow these steps:
 7. Run migrations: `php artisan migrate`
 8. Start the development server: `php artisan serve`
 9. Access the application in your browser: `http://localhost:8000`
+10. Create database with MySQL if any error is shown
 
 ## Contributing
 
